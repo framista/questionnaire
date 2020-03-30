@@ -1,11 +1,15 @@
 import React from 'react';
 import './App.css';
 
-function App() {
+import QuestionForm from './components/questionForm'
+
+
+const App = () => {
   return (
-    <div >
+    <div className="container__questionform">
+      <QuestionForm />
     </div>
-  );
+  )
 }
 
 export default App;

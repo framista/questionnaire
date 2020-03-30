@@ -1,0 +1,18 @@
+.container__questionnaire {
+    background-color: #afe6fa;
+    padding: 20px;
+    width: 80%;
+    height: 80%;
+    max-width: 750px;
+    position: relative;
+}
+
+.container__buttons {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
+    position: absolute;
+    bottom: 20px;
+    left: 0px;
+}

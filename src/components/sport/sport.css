@@ -1,0 +1,17 @@
+.sport__h3{
+    text-align: center;
+    padding: 15px 0px 10px;
+}
+
+.container__command{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px;
+}
+
+.container__options{
+    width: 40%;
+    display: flex;
+    justify-content: space-evenly;
+}
