@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import Sport from '../sport'
+import Skills from '../skills';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,13 +24,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['Education', 'Sport', 'Hobby'];
+    return ['Sport', 'Skills', 'Hobby'];
 }
 
 function getStepContent(stepIndex) {
     switch (stepIndex) {
         case 0:
-            return '';
+            return <Skills />
         case 1:
             return <Sport />;
         case 2:

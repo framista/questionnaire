@@ -11,7 +11,7 @@ const QuestioRadio = () => {
 
   return (
     <div className="container__question">
-      <Typography>swim</Typography>
+      <Typography>swimming</Typography>
       <div className="question__radio">
         <Radio
           checked={selectedValue === 'true'}

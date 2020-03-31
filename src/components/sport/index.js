@@ -1,14 +1,13 @@
 import React from 'react';
-import QuestioRadio from '../questionRadio.js/index.js';
+import QuestioRadio from '../questionRadio';
 import './sport.css'
 import { Typography } from '@material-ui/core';
-
 
 const Sport = () => {
     return (
         <div>
             <div className="container__command">
-                <Typography className="sport__h3">Can you:</Typography>
+                <Typography className="sport__h3">Do you like:</Typography>
                 <div className="container__options">
                     <Typography className="sport__h3">YES</Typography>
                     <Typography className="sport__h3">NO</Typography>
