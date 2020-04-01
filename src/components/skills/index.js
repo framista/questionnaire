@@ -1,10 +1,26 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { addProgrammingLanguage } from '../chips/programmingLanguagesSlice'
 import Chips from '../chips';
 import { Typography, FormControl, Input, TextareaAutosize, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import './skills.css';
 
-const Skills = () => {
+const mapDispatch = { addProgrammingLanguage }
+
+const Skills = ({ addProgrammingLanguage }) => {
+
+    const [programmingLanguageInput, setProgrammingLanguageInput] = useState("");
+
+    const onChangeProgrammingLanguageInput = e => setProgrammingLanguageInput(e.target.value);
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addProgrammingLanguage(programmingLanguageInput);
+            setProgrammingLanguageInput('');
+        }
+    }
 
     const [languages, setLanguages] = useState({
         english: true,
@@ -30,6 +46,9 @@ const Skills = () => {
                 <input
                     className="skills__input"
                     type="text"
+                    onKeyPress={handleKeyDown}
+                    value={programmingLanguageInput}
+                    onChange={onChangeProgrammingLanguageInput}
                 ></input>
             </form>
             <Typography className="skills__h3">Describe the most interesting project, which you have ever created.</Typography>
@@ -85,7 +104,7 @@ const Skills = () => {
                     }
                     label="Polish"
                 ></FormControlLabel>
-                 <FormControlLabel
+                <FormControlLabel
                     control={
                         <Checkbox
                             checked={languages.russian}
@@ -96,7 +115,7 @@ const Skills = () => {
                     }
                     label="Russian"
                 ></FormControlLabel>
-                 <FormControlLabel
+                <FormControlLabel
                     control={
                         <Checkbox
                             checked={languages.chinese}
@@ -107,7 +126,7 @@ const Skills = () => {
                     }
                     label="Chinese"
                 ></FormControlLabel>
-                 <FormControlLabel
+                <FormControlLabel
                     control={
                         <Checkbox
                             checked={languages.hindi}
@@ -123,4 +142,4 @@ const Skills = () => {
     )
 };
 
-export default Skills;
+export default connect(null, mapDispatch)(Skills);
