@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { addProgrammingLanguage } from '../chips/programmingLanguagesSlice'
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    selectProgrammingLanguages,
+    addProgrammingLanguage,
+    removeProgrammingLanguage,
+    selectProjectDescription,
+    setProjectDescription,
+    selectForeignLanguages,
+    toggleForeignLanguage,
+} from './skillsSlice'
 import Chips from '../chips';
-import { Typography, FormControl, Input, TextareaAutosize, FormGroup, FormControlLabel, Checkbox } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
+import { Typography, FormGroup } from '@material-ui/core';
 import './skills.css';
+import Checkboxes from '../checkboxes';
 
-const mapDispatch = { addProgrammingLanguage }
+const Skills = () => {
 
-const Skills = ({ addProgrammingLanguage }) => {
+    const dispatch = useDispatch();
+    const programmingLanguages = useSelector(selectProgrammingLanguages);
+    const foreignLanguages = useSelector(selectForeignLanguages);
+    const projectDesciption = useSelector(selectProjectDescription);
 
     const [programmingLanguageInput, setProgrammingLanguageInput] = useState("");
 
@@ -17,30 +28,26 @@ const Skills = ({ addProgrammingLanguage }) => {
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            addProgrammingLanguage(programmingLanguageInput);
+            dispatch(addProgrammingLanguage(programmingLanguageInput));
             setProgrammingLanguageInput('');
         }
     }
 
-    const [languages, setLanguages] = useState({
-        english: true,
-        german: false,
-        french: false,
-        polish: false,
-        russian: false,
-        chinese: false,
-        hindi: false,
-    });
-
-    const handleChangeLanguage = (event) => {
-        setLanguages({ ...languages, [event.target.name]: event.target.checked });
+    const handleRemoveProgrammingLanguage = language => {
+        dispatch(removeProgrammingLanguage(language));
     }
+
+    const handleToggleForeingLanguage = language => {
+        dispatch(toggleForeignLanguage(language))
+    }
+
+    const handleProjectDescription = e => dispatch(setProjectDescription(e.target.value))
 
     return (
         <div>
             <Typography className="skills__h3">What programming languages do you know?</Typography>
             <div className="container__chips">
-                <Chips />
+                <Chips data={programmingLanguages} remove={handleRemoveProgrammingLanguage} />
             </div>
             <form className="skills__form">
                 <input
@@ -51,95 +58,23 @@ const Skills = ({ addProgrammingLanguage }) => {
                     onChange={onChangeProgrammingLanguageInput}
                 ></input>
             </form>
+
             <Typography className="skills__h3">Describe the most interesting project, which you have ever created.</Typography>
             <form className="skills__form">
                 <textarea
                     className="skills__textarea"
                     rows="5"
+                    value={projectDesciption}
+                    onChange={handleProjectDescription}
                 ></textarea>
             </form>
+
             <Typography className="skills__h3">Which languages do you speak?</Typography>
             <FormGroup row className="skills__languages">
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={languages.english}
-                            onChange={handleChangeLanguage}
-                            name="english"
-                            color="primary"
-                        ></Checkbox>
-                    }
-                    label="English"
-                ></FormControlLabel>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={languages.german}
-                            onChange={handleChangeLanguage}
-                            name="german"
-                            color="primary"
-                        ></Checkbox>
-                    }
-                    label="German"
-                ></FormControlLabel>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={languages.french}
-                            onChange={handleChangeLanguage}
-                            name="french"
-                            color="primary"
-                        ></Checkbox>
-                    }
-                    label="French"
-                ></FormControlLabel>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={languages.polish}
-                            onChange={handleChangeLanguage}
-                            name="polish"
-                            color="primary"
-                        ></Checkbox>
-                    }
-                    label="Polish"
-                ></FormControlLabel>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={languages.russian}
-                            onChange={handleChangeLanguage}
-                            name="russian"
-                            color="primary"
-                        ></Checkbox>
-                    }
-                    label="Russian"
-                ></FormControlLabel>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={languages.chinese}
-                            onChange={handleChangeLanguage}
-                            name="chinese"
-                            color="primary"
-                        ></Checkbox>
-                    }
-                    label="Chinese"
-                ></FormControlLabel>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={languages.hindi}
-                            onChange={handleChangeLanguage}
-                            name="hindi"
-                            color="primary"
-                        ></Checkbox>
-                    }
-                    label="Hindi"
-                ></FormControlLabel>
+                <Checkboxes data={foreignLanguages} toggle={handleToggleForeingLanguage} />
             </FormGroup>
         </div>
     )
 };
 
-export default connect(null, mapDispatch)(Skills);
+export default Skills;

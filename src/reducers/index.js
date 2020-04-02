@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import programmingLanguagesReducer from '../components/chips/programmingLanguagesSlice'
+import skillsSliceReducer from '../components/skills/skillsSlice'
 
 export default combineReducers({
-    programmingLanguages: programmingLanguagesReducer,
+    skills: skillsSliceReducer,
 })

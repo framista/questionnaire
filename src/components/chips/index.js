@@ -1,11 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-
-const mapStateToProps = state => ({
-  programmingLanguages: state.programmingLanguages,
-})
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,38 +14,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Chips = (state) => {
+const Chips = ({ data, remove }) => {
 
-  const { programmingLanguages } = state;
-  
   const classes = useStyles();
-  
-  const [chipData, setChipData] = useState(
-    programmingLanguages.map((language, index) => {
-      return { key: index, label: language }
-    })
-  )
-
-  useEffect(() => {
-    setChipData(programmingLanguages.map((language, index) => {
-      return { key: index, label: language }
-    }))
-  }, [programmingLanguages.join('')])
 
   const handleDelete = (chipToDelete) => () => {
-    setChipData((chips) => chips.filter((chip) => chip.key !== chipToDelete.key));
+    remove(chipToDelete);
   };
 
   return (
     <div>
-      {chipData.map((data) => {
+      {data.map(el => {
         return (
           <Chip
-            key={data.key}
+            key={el}
             variant="outlined"
             color="primary"
-            label={data.label}
-            onDelete={handleDelete(data)}
+            label={el}
+            onDelete={handleDelete(el)}
             className={classes.chip}
           />
         );
@@ -59,4 +40,4 @@ const Chips = (state) => {
   );
 }
 
-export default connect(mapStateToProps)(Chips);
+export default Chips;
