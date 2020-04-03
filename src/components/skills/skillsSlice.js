@@ -11,6 +11,7 @@ const initialState = {
         { content: 'russian', valid: false },
         { content: 'hindi', valid: false },
     ],
+    errorProgrammingLanguage: '',
     projectsDescription: '',
 }
 
@@ -21,6 +22,9 @@ const skillsSlice = createSlice({
         addProgrammingLanguage: (state, action) => {
             const language = action.payload;
             state.programmingLanguages.push(language);
+        },
+        setErrorProgrammingLanguage: (state, action) => {
+            state.errorProgrammingLanguage = action.payload;
         },
         removeProgrammingLanguage: (state, action) => {
             const language = action.payload;
@@ -38,9 +42,11 @@ const skillsSlice = createSlice({
     }
 });
 
-export const { addProgrammingLanguage, removeProgrammingLanguage, setProjectDescription, toggleForeignLanguage } = skillsSlice.actions;
+export const { addProgrammingLanguage, setErrorProgrammingLanguage, removeProgrammingLanguage, setProjectDescription, toggleForeignLanguage } = skillsSlice.actions;
 
 export const selectProgrammingLanguages = state => state.skills.programmingLanguages;
+
+export const selectErrorProgrammingLanguage = state => state.skills.errorProgrammingLanguage;
 
 export const selectForeignLanguages = state => state.skills.foreignLanguages;
 

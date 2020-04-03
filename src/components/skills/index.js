@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     selectProgrammingLanguages,
     addProgrammingLanguage,
+    selectErrorProgrammingLanguage,
+    setErrorProgrammingLanguage,
     removeProgrammingLanguage,
     selectProjectDescription,
     setProjectDescription,
@@ -18,6 +20,7 @@ const Skills = () => {
 
     const dispatch = useDispatch();
     const programmingLanguages = useSelector(selectProgrammingLanguages);
+    const errorProgrammingLanguage = useSelector(selectErrorProgrammingLanguage);
     const foreignLanguages = useSelector(selectForeignLanguages);
     const projectDesciption = useSelector(selectProjectDescription);
 
@@ -28,6 +31,20 @@ const Skills = () => {
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
+            let programmingLanguageIndex = programmingLanguages.indexOf(programmingLanguageInput);
+            if (programmingLanguageInput.length < 3) {
+                dispatch(setErrorProgrammingLanguage("Too short name of programming language"));
+                return
+            }
+            if (programmingLanguageInput.length > 20) {
+                dispatch(setErrorProgrammingLanguage("Too long name of programming language"));
+                return
+            }
+            if (programmingLanguageIndex !== -1) {
+                dispatch(setErrorProgrammingLanguage("Not duplicate programming language"));
+                return
+            }
+            dispatch(setErrorProgrammingLanguage(""));
             dispatch(addProgrammingLanguage(programmingLanguageInput));
             setProgrammingLanguageInput('');
         }
@@ -57,6 +74,7 @@ const Skills = () => {
                     value={programmingLanguageInput}
                     onChange={onChangeProgrammingLanguageInput}
                 ></input>
+                {errorProgrammingLanguage && <div className="skills__error">{errorProgrammingLanguage}</div>}
             </form>
 
             <Typography className="skills__h3">Describe the most interesting project, which you have ever created.</Typography>
