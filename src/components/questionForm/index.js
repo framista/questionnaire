@@ -24,17 +24,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['Sport', 'Skills', 'Hobby'];
+    return ['Hobby', 'Skills', 'Sport'];
 }
 
 function getStepContent(stepIndex) {
     switch (stepIndex) {
         case 0:
-            return <Skills />
+            return "";
         case 1:
-            return <Sport />;
+            return <Skills />;
         case 2:
-            return '';
+            return <Sport />;
         default:
             return '';
     }

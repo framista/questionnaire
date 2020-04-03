@@ -1,9 +1,25 @@
 import React from 'react';
-import QuestioRadio from '../questionRadio';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    selectQuestions,
+    toggleSelected,
+} from './sportSlice'
+import Radions from '../radions';
 import './sport.css'
 import { Typography } from '@material-ui/core';
 
 const Sport = () => {
+
+    const dispatch = useDispatch();
+    const questions = useSelector(selectQuestions);
+
+    const handleToggleRadion = answer => {
+        // console.log('content')
+        // console.log(content)
+        console.log(answer)
+        dispatch(toggleSelected(answer));
+    }
+
     return (
         <div>
             <div className="container__command">
@@ -13,11 +29,7 @@ const Sport = () => {
                     <Typography className="sport__h3">NO</Typography>
                 </div>
             </div>
-            <QuestioRadio />
-            <QuestioRadio />
-            <QuestioRadio />
-            <QuestioRadio />
-            <QuestioRadio />
+            <Radions data={questions} toggle={handleToggleRadion} />
         </div>
     )
 };

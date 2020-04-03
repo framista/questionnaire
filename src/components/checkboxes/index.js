@@ -4,7 +4,7 @@ import { FormControlLabel, Checkbox } from '@material-ui/core';
 
 const Checkboxes = ({ data, toggle }) => {
 
-    const handleToogle = (event, content) => {
+    const handleToggle = (event, content) => {
         toggle(content)
     }
 
@@ -20,7 +20,7 @@ const Checkboxes = ({ data, toggle }) => {
                                 color="primary"
                             />
                         }
-                        onChange={e => handleToogle(e, el.content)}
+                        onChange={e => handleToggle(e, el.content)}
                         label={el.content}
                         key={el.content}
                     />
