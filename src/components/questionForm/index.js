@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Sport from '../sport'
 import Skills from '../skills';
+import Info from '../info';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,19 +25,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['Hobby', 'Skills', 'Sport'];
+    return ['Information', 'Skills', 'Sport'];
 }
 
 function getStepContent(stepIndex) {
     switch (stepIndex) {
         case 0:
-            return "";
+            return <Info />;
         case 1:
             return <Skills />;
         case 2:
             return <Sport />;
         default:
-            return '';
+            return "";
     }
 }
 
